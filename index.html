@@ -3,63 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f3ef" />
   <title>Família Cartões</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand"><div class="brand-mark">F</div><span>Família Cartões</span></div>
-    <nav>
-      <button class="nav-item active" data-page="dashboard"><span>⌂</span> Visão geral</button>
-      <button class="nav-item" data-page="expenses"><span>≡</span> Compras</button>
-      <button class="nav-item" data-page="cards"><span>▰</span> Cartões</button>
-      <button class="nav-item" data-page="users"><span>♙</span> Usuários</button>
-      <button class="nav-item" data-page="invoice"><span>⇧</span> Fatura</button>
-    </nav>
-  </aside>
+  <section id="login-screen" class="login-screen">
+    <form id="login-form" class="login-card">
+      <div class="brand-mark login-mark">F</div>
+      <p class="eyebrow">CONTROLE DA FAMÍLIA</p>
+      <h1>Entre na sua conta</h1>
+      <p class="login-copy">Acesse para acompanhar as compras e faturas da família.</p>
+      <label>E-mail<input name="email" type="email" required placeholder="voce@familia.com" autocomplete="username" /></label>
+      <label>Senha<input name="password" type="password" required placeholder="Sua senha" autocomplete="current-password" /></label>
+      <p id="login-error" class="error-message" role="alert"></p>
+      <button class="primary login-submit" type="submit">Entrar</button>
+      <small class="demo-note">Protótipo: use o e-mail de um membro cadastrado e qualquer senha.</small>
+    </form>
+  </section>
 
-  <main>
-    <header>
-      <div><p class="eyebrow">NOVEMBRO 2026</p><h1 id="page-title">Visão geral</h1></div>
-      <button class="primary" id="open-expense">＋ Nova compra</button>
-    </header>
+  <div id="app-shell" class="app-shell" hidden>
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">F</div><span>Família Cartões</span></div>
+      <nav>
+        <button class="nav-item active" data-page="dashboard"><span>⌂</span> Visão geral</button>
+        <button class="nav-item" data-page="expenses"><span>≡</span> Compras</button>
+        <button class="nav-item" data-page="cards"><span>▰</span> Cartões</button>
+        <button class="nav-item" data-page="users"><span>♙</span> Usuários</button>
+        <button class="nav-item" data-page="invoice"><span>⇧</span> Fatura</button>
+      </nav>
+      <div class="sidebar-user"><span id="sidebar-avatar" class="avatar">V</span><div><strong id="sidebar-name">Você</strong><small id="sidebar-email"></small></div><button id="logout" class="logout" title="Sair" aria-label="Sair">↪</button></div>
+    </aside>
 
-    <section id="dashboard" class="page active">
-      <div class="summary-grid">
-        <article class="card summary"><p>Gasto total</p><h2 id="total-spend">R$ 0,00</h2><span class="trend">Neste mês</span></article>
-        <article class="card summary"><p>Compras</p><h2 id="purchase-count">0</h2><span id="installment-count">0 parceladas</span></article>
-        <article class="card summary"><p>Cartões ativos</p><h2 id="card-count">0</h2><span>Em uso pela família</span></article>
-      </div>
+    <main>
+      <header>
+        <div><p class="eyebrow">CONTROLE FAMILIAR</p><h1 id="page-title">Visão geral</h1></div>
+        <div class="header-actions"><label class="month-picker">Fatura de <input id="bill-month" type="month" /></label><button class="primary" id="open-expense">＋ Nova compra</button></div>
+      </header>
 
-      <div class="content-grid">
-        <article class="panel">
-          <div class="panel-head"><div><p class="eyebrow">MOVIMENTAÇÃO</p><h3>Gastos por pessoa</h3></div></div>
-          <div id="user-chart" class="chart"></div>
-        </article>
-        <article class="panel">
-          <div class="panel-head"><div><p class="eyebrow">ÚLTIMAS</p><h3>Compras recentes</h3></div></div>
-          <div id="recent-list" class="expense-list"></div>
-        </article>
-      </div>
-    </section>
+      <div class="prototype-banner"><strong>Protótipo demonstrativo</strong><span>Os dados ficam neste navegador. Login e leitura por IA ainda precisam de um serviço seguro para funcionar em produção.</span></div>
 
-    <section id="expenses" class="page">
-      <div class="panel"><div class="panel-head"><div><p class="eyebrow">REGISTRO</p><h3>Todas as compras</h3></div></div><div id="all-expenses" class="expense-list"></div></div>
-    </section>
+      <section id="dashboard" class="page active">
+        <div class="summary-grid">
+          <article class="card summary"><p>Total previsto nesta fatura</p><h2 id="total-spend">R$ 0,00</h2><span class="trend">Inclui parcelas deste mês</span></article>
+          <article class="card summary"><p>Compras na fatura</p><h2 id="purchase-count">0</h2><span id="installment-count">0 parceladas</span></article>
+          <article class="card summary"><p>Cartões cadastrados</p><h2 id="card-count">0</h2><span>Em uso pela família</span></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">FATURA SELECIONADA</p><h3>Gastos por pessoa</h3></div></div><div id="user-chart" class="chart"></div></article>
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">LANÇAMENTOS</p><h3>Compras desta fatura</h3></div></div><div id="recent-list" class="expense-list"></div></article>
+        </div>
+      </section>
 
-    <section id="cards" class="page"><div class="section-head"><div><p class="eyebrow">MEIOS DE PAGAMENTO</p><h3>Cartões</h3></div><button class="secondary" id="open-card">＋ Adicionar cartão</button></div><div id="card-grid" class="card-grid"></div></section>
+      <section id="expenses" class="page"><div class="panel"><div class="panel-head"><div><p class="eyebrow">FATURA SELECIONADA</p><h3>Compras e parcelas</h3></div></div><div id="all-expenses" class="expense-list"></div></div></section>
+      <section id="cards" class="page"><div class="section-head"><div><p class="eyebrow">MEIOS DE PAGAMENTO</p><h3>Cartões</h3></div><button class="secondary" id="open-card">＋ Adicionar cartão</button></div><div id="card-grid" class="card-grid"></div></section>
+      <section id="users" class="page"><div class="section-head"><div><p class="eyebrow">ACESSO DA FAMÍLIA</p><h3>Membros e logins</h3></div><button class="secondary" id="open-user">＋ Adicionar membro</button></div><div class="notice">Cada membro cadastrado tem um e-mail para entrar. Neste protótipo, a autenticação é apenas demonstrativa; não use senhas reais.</div><div id="user-grid" class="user-grid"></div></section>
+      <section id="invoice" class="page">
+        <div class="invoice-grid">
+          <article class="panel upload-panel"><div class="upload-icon">⇧</div><p class="eyebrow">IMPORTAÇÃO ASSISTIDA</p><h3>Envie sua fatura</h3><p>O protótipo tenta extrair lançamentos de arquivos PDF com texto ou CSV. Confira tudo antes de importar.</p><label class="primary file-label">Selecionar PDF ou CSV<input id="invoice-file" type="file" accept=".pdf,.csv,.txt,application/pdf,text/csv" /></label><small id="file-name">Nenhum arquivo selecionado</small><p class="ai-note">✦ Leitura automática por IA: integração demonstrativa. A análise real de faturas exige configurar um serviço de IA seguro no servidor.</p></article>
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">REVISE ANTES DE SALVAR</p><h3>Compras encontradas</h3></div><button id="import-selected" class="primary" disabled>Importar selecionadas</button></div><div id="import-list" class="expense-list"><div class="empty">Selecione uma fatura para começar</div></div></article>
+        </div>
+      </section>
+    </main>
+  </div>
 
-    <section id="users" class="page"><div class="section-head"><div><p class="eyebrow">FAMÍLIA</p><h3>Usuários</h3></div><button class="secondary" id="open-user">＋ Adicionar usuário</button></div><div id="user-grid" class="user-grid"></div></section>
+  <dialog id="expense-modal"><form id="expense-form"><div class="modal-head"><h3>Nova compra</h3><button type="button" class="close" data-close>×</button></div><label>Descrição<input name="description" required placeholder="Ex.: Supermercado" /></label><div class="form-grid"><label>Valor total da compra<input name="amount" type="number" min="0.01" step="0.01" required placeholder="0,00" /></label><label>Data da compra<input name="date" type="date" required /></label></div><div class="form-grid"><label>Responsável<select name="user" id="expense-user"></select></label><label>Cartão<select name="card" id="expense-card"></select></label></div><label>Parcelamento<select name="installments"><option value="1">À vista</option><option value="2">2x</option><option value="3">3x</option><option value="6">6x</option><option value="10">10x</option><option value="12">12x</option></select></label><p class="field-hint">O valor será dividido igualmente nas faturas mensais, começando no mês da compra.</p><div class="modal-actions"><button type="button" class="secondary" data-close>Cancelar</button><button type="submit" class="primary">Salvar compra</button></div></form></dialog>
 
-    <section id="invoice" class="page"><div class="invoice-grid"><article class="panel upload-panel"><div class="upload-icon">⇧</div><h3>Importar fatura</h3><p>Envie um arquivo PDF ou CSV. Os dados aparecerão abaixo para conferência.</p><label class="primary file-label">Selecionar arquivo<input id="invoice-file" type="file" accept=".pdf,.csv,.txt" /></label><small id="file-name">Nenhum arquivo selecionado</small></article><article class="panel"><div class="panel-head"><div><p class="eyebrow">CONFERÊNCIA</p><h3>Compras importadas</h3></div></div><div id="import-list" class="expense-list"><div class="empty">Nenhuma fatura importada</div></div></article></div></section>
-  </main>
+  <dialog id="card-modal"><form id="card-form"><div class="modal-head"><h3>Novo cartão</h3><button type="button" class="close" data-close>×</button></div><label>Nome do cartão<input name="name" required placeholder="Ex.: Nubank Roxo" /></label><label>Últimos 4 dígitos<input name="digits" required maxlength="4" pattern="[0-9]{4}" placeholder="1234" /></label><div class="modal-actions"><button type="button" class="secondary" data-close>Cancelar</button><button type="submit" class="primary">Adicionar cartão</button></div></form></dialog>
+  <dialog id="user-modal"><form id="user-form"><div class="modal-head"><h3>Novo membro</h3><button type="button" class="close" data-close>×</button></div><label>Nome<input name="name" required placeholder="Ex.: Maria" /></label><label>E-mail de acesso<input name="email" type="email" required placeholder="maria@familia.com" /></label><label>Cor<select name="color"><option value="#7059d8">Roxo</option><option value="#ee7c55">Laranja</option><option value="#4a9d91">Verde</option><option value="#4d86c6">Azul</option><option value="#d45b78">Rosa</option></select></label><div class="modal-actions"><button type="button" class="secondary" data-close>Cancelar</button><button type="submit" class="primary">Adicionar membro</button></div></form></dialog>
 
-  <dialog id="expense-modal"><form id="expense-form" method="dialog"><div class="modal-head"><h3>Nova compra</h3><button type="button" class="close" data-close>×</button></div><label>Descrição<input name="description" required placeholder="Ex.: Supermercado" /></label><div class="form-grid"><label>Valor<input name="amount" type="number" step="0.01" required placeholder="0,00" /></label><label>Data<input name="date" type="date" required /></label></div><div class="form-grid"><label>Usuário<select name="user" id="expense-user"></select></label><label>Cartão<select name="card" id="expense-card"></select></label></div><label>Parcelas<select name="installments"><option value="1">À vista</option><option value="2">2x</option><option value="3">3x</option><option value="6">6x</option><option value="10">10x</option><option value="12">12x</option></select></label><div class="modal-actions"><button type="button" class="secondary" data-close>Cancelar</button><button type="submit" class="primary">Salvar compra</button></div></form></dialog>
-
-  <dialog id="card-modal"><form id="card-form" method="dialog"><div class="modal-head"><h3>Novo cartão</h3><button type="button" class="close" data-close>×</button></div><label>Nome do cartão<input name="name" required placeholder="Ex.: Nubank Roxo" /></label><label>Últimos 4 dígitos<input name="digits" required maxlength="4" pattern="[0-9]{4}" placeholder="1234" /></label><div class="modal-actions"><button type="button" class="secondary" data-close>Cancelar</button><button type="submit" class="primary">Adicionar cartão</button></div></form></dialog>
-
-  <dialog id="user-modal"><form id="user-form" method="dialog"><div class="modal-head"><h3>Novo usuário</h3><button type="button" class="close" data-close>×</button></div><label>Nome<input name="name" required placeholder="Ex.: Maria" /></label><label>Cor<select name="color"><option value="#7059d8">Roxo</option><option value="#ee7c55">Laranja</option><option value="#4a9d91">Verde</option><option value="#4d86c6">Azul</option><option value="#d45b78">Rosa</option></select></label><div class="modal-actions"><button type="button" class="secondary" data-close>Cancelar</button><button type="submit" class="primary">Adicionar usuário</button></div></form></dialog>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
