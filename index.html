@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Família Cartões</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">F</div><span>Família Cartões</span></div>
+    <nav>
+      <button class="nav-item active" data-page="dashboard"><span>⌂</span> Visão geral</button>
+      <button class="nav-item" data-page="expenses"><span>≡</span> Compras</button>
+      <button class="nav-item" data-page="cards"><span>▰</span> Cartões</button>
+      <button class="nav-item" data-page="users"><span>♙</span> Usuários</button>
+      <button class="nav-item" data-page="invoice"><span>⇧</span> Fatura</button>
+    </nav>
+  </aside>
+
+  <main>
+    <header>
+      <div><p class="eyebrow">NOVEMBRO 2026</p><h1 id="page-title">Visão geral</h1></div>
+      <button class="primary" id="open-expense">＋ Nova compra</button>
+    </header>
+
+    <section id="dashboard" class="page active">
+      <div class="summary-grid">
+        <article class="card summary"><p>Gasto total</p><h2 id="total-spend">R$ 0,00</h2><span class="trend">Neste mês</span></article>
+        <article class="card summary"><p>Compras</p><h2 id="purchase-count">0</h2><span id="installment-count">0 parceladas</span></article>
+        <article class="card summary"><p>Cartões ativos</p><h2 id="card-count">0</h2><span>Em uso pela família</span></article>
+      </div>
+
+      <div class="content-grid">
+        <article class="panel">
+          <div class="panel-head"><div><p class="eyebrow">MOVIMENTAÇÃO</p><h3>Gastos por pessoa</h3></div></div>
+          <div id="user-chart" class="chart"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><p class="eyebrow">ÚLTIMAS</p><h3>Compras recentes</h3></div></div>
+          <div id="recent-list" class="expense-list"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="expenses" class="page">
+      <div class="panel"><div class="panel-head"><div><p class="eyebrow">REGISTRO</p><h3>Todas as compras</h3></div></div><div id="all-expenses" class="expense-list"></div></div>
+    </section>
+
+    <section id="cards" class="page"><div class="section-head"><div><p class="eyebrow">MEIOS DE PAGAMENTO</p><h3>Cartões</h3></div><button class="secondary" id="open-card">＋ Adicionar cartão</button></div><div id="card-grid" class="card-grid"></div></section>
+
+    <section id="users" class="page"><div class="section-head"><div><p class="eyebrow">FAMÍLIA</p><h3>Usuários</h3></div><button class="secondary" id="open-user">＋ Adicionar usuário</button></div><div id="user-grid" class="user-grid"></div></section>
+
+    <section id="invoice" class="page"><div class="invoice-grid"><article class="panel upload-panel"><div class="upload-icon">⇧</div><h3>Importar fatura</h3><p>Envie um arquivo PDF ou CSV. Os dados aparecerão abaixo para conferência.</p><label class="primary file-label">Selecionar arquivo<input id="invoice-file" type="file" accept=".pdf,.csv,.txt" /></label><small id="file-name">Nenhum arquivo selecionado</small></article><article class="panel"><div class="panel-head"><div><p class="eyebrow">CONFERÊNCIA</p><h3>Compras importadas</h3></div></div><div id="import-list" class="expense-list"><div class="empty">Nenhuma fatura importada</div></div></article></div></section>
+  </main>
+
+  <dialog id="expense-modal"><form id="expense-form" method="dialog"><div class="modal-head"><h3>Nova compra</h3><button type="button" class="close" data-close>×</button></div><label>Descrição<input name="description" required placeholder="Ex.: Supermercado" /></label><div class="form-grid"><label>Valor<input name="amount" type="number" step="0.01" required placeholder="0,00" /></label><label>Data<input name="date" type="date" required /></label></div><div class="form-grid"><label>Usuário<select name="user" id="expense-user"></select></label><label>Cartão<select name="card" id="expense-card"></select></label></div><label>Parcelas<select name="installments"><option value="1">À vista</option><option value="2">2x</option><option value="3">3x</option><option value="6">6x</option><option value="10">10x</option><option value="12">12x</option></select></label><div class="modal-actions"><button type="button" class="secondary" data-close>Cancelar</button><button type="submit" class="primary">Salvar compra</button></div></form></dialog>
+
+  <dialog id="card-modal"><form id="card-form" method="dialog"><div class="modal-head"><h3>Novo cartão</h3><button type="button" class="close" data-close>×</button></div><label>Nome do cartão<input name="name" required placeholder="Ex.: Nubank Roxo" /></label><label>Últimos 4 dígitos<input name="digits" required maxlength="4" pattern="[0-9]{4}" placeholder="1234" /></label><div class="modal-actions"><button type="button" class="secondary" data-close>Cancelar</button><button type="submit" class="primary">Adicionar cartão</button></div></form></dialog>
+
+  <dialog id="user-modal"><form id="user-form" method="dialog"><div class="modal-head"><h3>Novo usuário</h3><button type="button" class="close" data-close>×</button></div><label>Nome<input name="name" required placeholder="Ex.: Maria" /></label><label>Cor<select name="color"><option value="#7059d8">Roxo</option><option value="#ee7c55">Laranja</option><option value="#4a9d91">Verde</option><option value="#4d86c6">Azul</option><option value="#d45b78">Rosa</option></select></label><div class="modal-actions"><button type="button" class="secondary" data-close>Cancelar</button><button type="submit" class="primary">Adicionar usuário</button></div></form></dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
